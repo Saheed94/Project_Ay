@@ -32,3 +32,16 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/my-website-image:latest
+
+      # Step 6: SSH into the server and deploy the image
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull my-website-image
+            docker stop my-website-container || true
+            docker rm my-website-container || true
+            docker run -d --name my-website-container -p 80:80 my-website-image
