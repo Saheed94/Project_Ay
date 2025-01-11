@@ -1,15 +1,15 @@
-# Use the official NGINX image from the Docker Hub
 FROM nginx:latest
 
-# Set the working directory inside the container
-WORKDIR /usr/share/nginx/html
+# Remove the default NGINX index page
+RUN rm -rf /usr/share/nginx/html/*
 
-# Copy the HTML files from your local machine to the NGINX container
-COPY . .
+# Copy your web app files into the NGINX web directory
+COPY ./saveweb2zip-com-pepeunchained-com /usr/share/nginx/html
 
-# Expose port 80 to the host machine
+# Expose port 80
 EXPOSE 80
 
-# Command to run NGINX in the foreground
+# Start NGINX
 CMD ["nginx", "-g", "daemon off;"]
+
 
