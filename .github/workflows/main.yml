@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull my-website-image
-            docker stop my-website-container || true
-            docker rm my-website-container || true
-            docker run -d --name my-website-container -p 80:80 my-website-image
+            sudo docker pull my-website-image
+            sudo docker stop my-website-container || true
+            sudo docker rm my-website-container || true
+            sudo docker run -d --name my-website-container -p 80:80 my-website-image
