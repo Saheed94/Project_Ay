@@ -1,18 +1,15 @@
-FROM nginx:latest
+# Use the official Nginx image as the base image
+FROM nginx:alpine
 
-# Remove the default NGINX index page
-RUN rm -rf /usr/share/nginx/html/*
-# Set correct ownership for NGINX to access the files
+# Set the working directory
+WORKDIR /usr/share/nginx/html
 
-RUN chown -R nginx:nginx /usr/share/nginx/html
-# Copy your web app files into the NGINX web directory
+# Copy the HTML, CSS, and JavaScript files to the Nginx server
+COPY . .
 
-COPY . /usr/share/nginx/html
-
-# Expose port 80
+# Expose the default port for Nginx
 EXPOSE 80
 
-# Start NGINX
+# Start Nginx (this is the default command)
 CMD ["nginx", "-g", "daemon off;"]
-
 
